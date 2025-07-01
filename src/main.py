@@ -123,7 +123,9 @@ def pep(session):
             pep_sum[status] = pep_sum.get(status, 0) + 1
     pep_sum['Total'] = count_pep
     report = {'Status': 'Count'}
-    report.update(dict(sorted(pep_sum.items())))
+    report.update(dict(sorted((k, v) for k,
+                              v in pep_sum.items() if k != 'Total')))
+    report['Total'] = pep_sum['Total']
     result = list(report.items())
     return result
 
